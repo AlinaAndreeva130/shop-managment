@@ -30,20 +30,30 @@ public abstract class BaseEditor<T> extends Dialog {
         createActionPanel(repository);
     }
 
-    public void edit(T entity, Runnable actionAfterEdit) {
+    public void addEntity() {
+        actionBeforeOpen();
+        binder.setBean(createNewEntity());
+        open();
+    }
+
+    public void editEntity(T entity, Runnable actionAfterEdit) {
         this.actionAfterEdit = actionAfterEdit;
         actionBeforeOpen();
-        super.open();
         binder.setBean(entity);
+        open();
     }
 
     protected abstract void createContentPanel(VerticalLayout contentPanel);
+
+    protected abstract T createNewEntity();
 
     private void createActionPanel(JpaRepository repository) {
         Button saveBtn = new Button("Сохранить", event -> {
             close();
             repository.save(binder.getBean());
-            actionAfterEdit.run();
+            if (actionAfterEdit != null) {
+                actionAfterEdit.run();
+            }
         });
         Button cancelBtn = new Button("Отмена", event -> close());
         HorizontalLayout actionPanel = new HorizontalLayout(saveBtn, cancelBtn);
@@ -89,5 +99,4 @@ public abstract class BaseEditor<T> extends Dialog {
     protected void actionBeforeOpen() {
         // maybe implementing
     }
-
 }
