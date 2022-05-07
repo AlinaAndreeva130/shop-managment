@@ -13,7 +13,7 @@ import ru.andreeva.shop.ui.component.ProductEditor;
 import ru.andreeva.shop.ui.view.MainLayout;
 
 @Route(value = "product", layout = MainLayout.class)
-@PageTitle("Читатели")
+@PageTitle("Товары")
 @Tag("product-view")
 @JsModule("./view/entity/product-view.ts")
 @UIScope
