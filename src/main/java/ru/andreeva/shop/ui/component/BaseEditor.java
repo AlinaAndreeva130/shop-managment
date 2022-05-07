@@ -34,7 +34,7 @@ public abstract class BaseEditor<T> extends Dialog {
     public void addEntity(Runnable actionAfterAdd) {
         this.actionAfterAdd = actionAfterAdd;
         actionBeforeOpen();
-        // FIXME: java.lang.ClassCastException: Cannot cast java.lang.String to java.lang.Double
+        // FIXME: java.lang.ClassCastException: Cannot cast java.lang.String to java.lang.Double (For product)
         binder.setBean(createNewEntity());
         open();
     }
