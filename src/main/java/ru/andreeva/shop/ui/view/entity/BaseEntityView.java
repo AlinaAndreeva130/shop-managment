@@ -63,14 +63,13 @@ public abstract class BaseEntityView<T, ID, I extends JpaSpecificationExecutor<T
     }
 
     private void addEntity(ClickEvent<Button> event) {
-        editor.addEntity();
-        grid.getDataProvider().refreshAll();
+        editor.addEntity(filterService::refresh);
     }
 
     private void editEntity(ClickEvent<Button> event) {
         if (!grid.getSelectedItems().isEmpty()) {
             T selectedItem = grid.getSelectedItems().iterator().next();
-            editor.editEntity(selectedItem, () -> grid.getDataProvider().refreshAll());
+            editor.editEntity(selectedItem, filterService::refresh);
         }
     }
 

@@ -20,6 +20,7 @@ public abstract class BaseEditor<T> extends Dialog {
     private Binder<T> binder;
     private Class<T> entityClass;
     private Runnable actionAfterEdit;
+    private Runnable actionAfterAdd;
 
     public BaseEditor(JpaRepository repository, Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -30,7 +31,8 @@ public abstract class BaseEditor<T> extends Dialog {
         createActionPanel(repository);
     }
 
-    public void addEntity() {
+    public void addEntity(Runnable actionAfterAdd) {
+        this.actionAfterAdd = actionAfterAdd;
         actionBeforeOpen();
         binder.setBean(createNewEntity());
         open();
@@ -49,11 +51,7 @@ public abstract class BaseEditor<T> extends Dialog {
 
     private void createActionPanel(JpaRepository repository) {
         Button saveBtn = new Button("Сохранить", event -> {
-            close();
-            repository.save(binder.getBean());
-            if (actionAfterEdit != null) {
-                actionAfterEdit.run();
-            }
+            saveEntity(repository);
         });
         Button cancelBtn = new Button("Отмена", event -> close());
         HorizontalLayout actionPanel = new HorizontalLayout(saveBtn, cancelBtn);
@@ -98,5 +96,17 @@ public abstract class BaseEditor<T> extends Dialog {
 
     protected void actionBeforeOpen() {
         // maybe implementing
+    }
+
+    private void saveEntity(JpaRepository repository) {
+        close();
+        repository.save(binder.getBean());
+
+        if (actionAfterAdd != null) {
+            actionAfterAdd.run();
+        }
+        if (actionAfterEdit != null) {
+            actionAfterEdit.run();
+        }
     }
 }

@@ -7,6 +7,8 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import ru.andreeva.shop.service.specification.SearchCriteria;
 import ru.andreeva.shop.service.specification.SpecificationFactory;
 
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class GridFilterService<T, ID, I extends org.springframework.data.jpa.repository.JpaRepository<T, ID> & org.springframework.data.jpa.repository.JpaSpecificationExecutor<T>> {
+public class GridFilterService<T, ID, I extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
     private final I repository;
     private final Grid<T> grid;
     private final Map<String, Specification<T>> filterMap;
@@ -51,6 +53,10 @@ public class GridFilterService<T, ID, I extends org.springframework.data.jpa.rep
         filter.addValueChangeListener(e -> filter(column.getKey(), e.getValue().trim()));
         // TODO: добавить перед заголовком колонки
         // column.setHeader(filter);
+    }
+
+    public void refresh() {
+        fill();
     }
 
     private void fill() {
