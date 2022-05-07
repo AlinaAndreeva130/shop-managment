@@ -22,6 +22,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" remarks="Описание товара" type="VARCHAR(255)"/>
+            <column name="price" remarks="Цена товара" type="double"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="knn">
@@ -113,7 +114,7 @@
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="source_type"/>
         </preConditions>
-        <loadData tableName="source_type" file="db/data/source_type.csv" encoding="UTF-8" separator=",">
+        <loadData tableName="source_type" file="db/data/source_type.csv" encoding="UTF-8">
             <column type="VARCHAR(100)" name="id" index="0"/>
             <column type="VARCHAR(255)" name="name" index="1"/>
         </loadData>
