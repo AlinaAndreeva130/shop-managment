@@ -77,7 +77,7 @@ public abstract class BaseEntityView<T, ID, I extends JpaSpecificationExecutor<T
         if (!grid.getSelectedItems().isEmpty()) {
             T deletingItem = grid.getSelectedItems().iterator().next();
             repository.delete(deletingItem);
-            grid.getDataProvider().refreshItem(deletingItem);
+            filterService.refresh();
         }
     }
 
