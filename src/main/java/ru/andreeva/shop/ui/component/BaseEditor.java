@@ -30,6 +30,13 @@ public abstract class BaseEditor<T> extends Dialog {
         createActionPanel(repository);
     }
 
+    public void edit(T entity, Runnable actionAfterEdit) {
+        this.actionAfterEdit = actionAfterEdit;
+        actionBeforeOpen();
+        super.open();
+        binder.setBean(entity);
+    }
+
     protected abstract void createContentPanel(VerticalLayout contentPanel);
 
     private void createActionPanel(JpaRepository repository) {
@@ -79,9 +86,8 @@ public abstract class BaseEditor<T> extends Dialog {
                 });
     }
 
-    public void edit(T entity, Runnable actionAfterEdit) {
-        this.actionAfterEdit = actionAfterEdit;
-        super.open();
-        binder.setBean(entity);
+    protected void actionBeforeOpen() {
+        // maybe implementing
     }
+
 }
