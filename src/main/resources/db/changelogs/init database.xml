@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1649594834087-1" author="nikolai (generated)">
+    <changeSet id="1" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="product"/>
@@ -24,7 +24,7 @@
             <column name="description" remarks="Описание товара" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-2" author="nikolai (generated)">
+    <changeSet id="2" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="category"/>
@@ -39,7 +39,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-3" author="nikolai (generated)">
+    <changeSet id="3" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="depository"/>
@@ -54,7 +54,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-4" author="nikolai (generated)">
+    <changeSet id="4" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="operation"/>
@@ -81,7 +81,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-5" author="nikolai (generated)">
+    <changeSet id="5" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="source"/>
@@ -96,7 +96,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-6" author="nikolai (generated)">
+    <changeSet id="6" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="source_type"/>
@@ -109,7 +109,7 @@
             <column name="name" remarks="Название источника" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-7" author="nikolai (generated)">
+    <changeSet id="7" author="knn">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="source_type"/>
         </preConditions>
@@ -118,7 +118,7 @@
             <column type="VARCHAR(255)" name="name" index="1"/>
         </loadData>
     </changeSet>
-    <changeSet id="1649594834087-8" author="nikolai (generated)">
+    <changeSet id="8" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="customer"/>
@@ -134,7 +134,7 @@
             <column name="organization_name" remarks="Наименование организации" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1649594834087-9" author="nikolai (generated)">
+    <changeSet id="9" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="depository_product_id_fk"/>
@@ -144,7 +144,7 @@
                                  constraintName="depository_product_id_fk" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="product"/>
     </changeSet>
-    <changeSet id="1649594834087-10" author="nikolai (generated)">
+    <changeSet id="10" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="operation_product_id_fk"/>
@@ -154,7 +154,7 @@
                                  constraintName="operation_product_id_fk" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="product"/>
     </changeSet>
-    <changeSet id="1649594834087-11" author="nikolai (generated)">
+    <changeSet id="11" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="operation_source_id_fk"/>
@@ -164,7 +164,7 @@
                                  constraintName="operation_source_id_fk" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="source"/>
     </changeSet>
-    <changeSet id="1649594834087-12" author="nikolai (generated)">
+    <changeSet id="12" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="product_category_id_fk"/>
@@ -174,7 +174,7 @@
                                  constraintName="product_category_id_fk" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="category"/>
     </changeSet>
-    <changeSet id="1649594834087-13" author="nikolai (generated)">
+    <changeSet id="13" author="knn">
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="source_source_type_id_fk"/>
