@@ -4,17 +4,13 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Nav;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import ru.andreeva.shop.ui.view.entity.CategoryView;
+import ru.andreeva.shop.ui.view.entity.ProductView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +18,9 @@ import java.util.List;
 /**
  * The main view is a top-level placeholder for other views.
  */
-@PWA(name = "library-management", shortName = "library-management", enableInstallPrompt = false)
+@PWA(name = "shop-management", shortName = "shop-management", enableInstallPrompt = false)
 @Theme(themeFolder = "library-management")
-@PageTitle("Main")
+@PageTitle("Главная")
 public class MainLayout extends AppLayout {
 
     public static class MenuItemInfo {
@@ -103,9 +99,9 @@ public class MainLayout extends AppLayout {
 
     private List<RouterLink> createLinks() {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{
-                new MenuItemInfo("Главная", "la la-file", MainView.class),/*
-                new MenuItemInfo("Фонд библиотеки", "la la-file", BookView.class),
-                new MenuItemInfo("Читатели", "la la-file", ProductView.class)*/};
+                new MenuItemInfo("Главная", "la la-file", MainView.class),
+                new MenuItemInfo("Товары", "la la-file", ProductView.class),
+                new MenuItemInfo("Категории товаров", "la la-file", CategoryView.class)};
         List<RouterLink> links = new ArrayList<>();
         for (MenuItemInfo menuItemInfo : menuItems) {
             links.add(createLink(menuItemInfo));
