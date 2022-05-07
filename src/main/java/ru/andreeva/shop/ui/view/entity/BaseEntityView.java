@@ -16,7 +16,7 @@ import ru.andreeva.shop.ui.filter.GridFilterService;
 
 import javax.annotation.PostConstruct;
 
-public abstract class BaseView<T, ID, I extends JpaSpecificationExecutor<T> & JpaRepository<T, ID>> extends LitTemplate {
+public abstract class BaseEntityView<T, ID, I extends JpaSpecificationExecutor<T> & JpaRepository<T, ID>> extends LitTemplate {
     @Id("grid")
     protected Grid<T> grid;
     protected final I repository;
@@ -32,7 +32,7 @@ public abstract class BaseView<T, ID, I extends JpaSpecificationExecutor<T> & Jp
     @Id("delete-btn")
     protected Button deleteBtn;
 
-    public BaseView(I booksRepository, SpecificationFactory<T> specificationFactory, BaseEditor<T> editor) {
+    public BaseEntityView(I booksRepository, SpecificationFactory<T> specificationFactory, BaseEditor<T> editor) {
         this.repository = booksRepository;
         this.editor = editor;
         filterService = new GridFilterService<>(this.repository, grid, specificationFactory);

@@ -105,7 +105,7 @@ public class MainLayout extends AppLayout {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{
                 new MenuItemInfo("Главная", "la la-file", MainView.class),/*
                 new MenuItemInfo("Фонд библиотеки", "la la-file", BookView.class),
-                new MenuItemInfo("Читатели", "la la-file", UserView.class)*/};
+                new MenuItemInfo("Читатели", "la la-file", ProductView.class)*/};
         List<RouterLink> links = new ArrayList<>();
         for (MenuItemInfo menuItemInfo : menuItems) {
             links.add(createLink(menuItemInfo));

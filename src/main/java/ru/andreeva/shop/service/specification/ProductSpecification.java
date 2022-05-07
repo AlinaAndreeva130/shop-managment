@@ -3,7 +3,9 @@ package ru.andreeva.shop.service.specification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
+import ru.andreeva.shop.service.dao.Product;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,12 +15,12 @@ import javax.persistence.criteria.Root;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserSpecification/* implements Specification<User>*/ {
+public class ProductSpecification implements Specification<Product> {
     private SearchCriteria criteria;
 
-    // @Override
+    @Override
     @Nullable
-    public Predicate toPredicate(Root/*<User>*/ root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         if (criteria.getOperation().equalsIgnoreCase(">")) {
             return builder.greaterThanOrEqualTo(root.get(criteria.getKey()), criteria.getValue().toString());
         } else if (criteria.getOperation().equalsIgnoreCase("<")) {
