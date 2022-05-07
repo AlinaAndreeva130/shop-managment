@@ -39,6 +39,11 @@ public class ProductEditor extends BaseEditor<Product> {
     }
 
     @Override
+    protected Product createNewEntity() {
+        return new Product();
+    }
+
+    @Override
     protected void actionBeforeOpen() {
         category.setItems(categoryRepository.findAll());
     }
