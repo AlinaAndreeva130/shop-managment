@@ -3,11 +3,15 @@ package ru.andreeva.shop.ui.component;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import org.springframework.stereotype.Component;
 import ru.andreeva.shop.service.dao.Category;
 import ru.andreeva.shop.service.dao.Product;
 import ru.andreeva.shop.service.repository.CategoryRepository;
 import ru.andreeva.shop.service.repository.ProductRepository;
+
+import java.util.List;
 
 @Component
 public class ProductEditor extends BaseEditor<Product> {
@@ -17,7 +21,7 @@ public class ProductEditor extends BaseEditor<Product> {
     private ComboBox<Category> category;
     @Bind
     private TextField description;
-    @Bind
+    @Bind(converter = Bind.Converter.STRING_TO_DOUBLE)
     private TextField price;
 
     private final CategoryRepository categoryRepository;
@@ -45,6 +49,7 @@ public class ProductEditor extends BaseEditor<Product> {
 
     @Override
     protected void actionBeforeOpen() {
-        category.setItems(categoryRepository.findAll());
+        category.clear();
+        category.setDataProvider(new ListDataProvider<>(categoryRepository.findAll()));
     }
 }

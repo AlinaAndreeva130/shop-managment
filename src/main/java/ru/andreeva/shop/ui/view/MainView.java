@@ -9,6 +9,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
+import ru.andreeva.shop.service.dao.Product;
 
 @Route(value = "", layout = MainLayout.class)
 @Tag("main-view")
@@ -22,5 +23,7 @@ public class MainView extends LitTemplate {
 
     public MainView() {
         testText.setText("dsadasd");
+        Product product = new Product();
+
     }
 }

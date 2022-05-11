@@ -16,7 +16,7 @@ public class Product {
     private Integer id;
     @Column
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
     @Column

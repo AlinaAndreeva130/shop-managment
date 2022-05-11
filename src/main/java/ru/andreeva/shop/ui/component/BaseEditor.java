@@ -9,16 +9,23 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.Converter;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
+import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import liquibase.pro.packaged.P;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.util.Pair;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public abstract class BaseEditor<T> extends Dialog {
     private Binder<T> binder;
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
     private Runnable actionAfterEdit;
     private Runnable actionAfterAdd;
 
@@ -33,9 +40,8 @@ public abstract class BaseEditor<T> extends Dialog {
 
     public void addEntity(Runnable actionAfterAdd) {
         this.actionAfterAdd = actionAfterAdd;
-        actionBeforeOpen();
-        // FIXME: java.lang.ClassCastException: Cannot cast java.lang.String to java.lang.Double (For product)
         binder.setBean(createNewEntity());
+        actionBeforeOpen();
         open();
     }
 
@@ -76,8 +82,9 @@ public abstract class BaseEditor<T> extends Dialog {
         Arrays.stream(this.getClass().getDeclaredFields()).filter(field -> field.isAnnotationPresent(Bind.class))
                 .forEach(field -> {
                     try {
+                        Bind annotation = field.getAnnotation(Bind.class);
                         String propertyName = StringUtils.isNotEmpty(
-                                field.getAnnotation(Bind.class).value()) ? field.getAnnotation(Bind.class)
+                                annotation.value()) ? annotation
                                 .value() : field.getName();
                         field.setAccessible(true);
                         Object fieldInstance = field.get(this);
@@ -85,14 +92,32 @@ public abstract class BaseEditor<T> extends Dialog {
                             throw new IllegalArgumentException("Field must be initialized");
                         }
 
-                        binder.bind((HasValue<?, ?>) fieldInstance,
-                                propertyName);
+                        if (annotation.converter() != Bind.Converter.NONE) {
+                            Pair<Converter, Object> converterNullRepresentation = getConverter(annotation.converter());
+                            binder.forField((HasValue<?, ?>) fieldInstance)
+                                    .withConverter(converterNullRepresentation.getFirst())
+                                    .withNullRepresentation(converterNullRepresentation.getSecond()).bind(propertyName);
+                        } else {
+                            binder.bind((HasValue<?, ?>) fieldInstance,
+                                    propertyName);
+                        }
                     } catch (IllegalAccessException e) {
                         throw new IllegalArgumentException("Binding class not contain filed " + field.getName());
                     } catch (ClassCastException e) {
                         throw new IllegalArgumentException("There is no possibility of binding a field of this type");
                     }
                 });
+    }
+
+    private Pair<Converter, Object> getConverter(Bind.Converter converter) {
+        HashMap<Converter, Object> map = new HashMap<>();
+        if (converter == Bind.Converter.STRING_TO_DOUBLE) {
+            return Pair.of(new StringToDoubleConverter("Not a double"), .0);
+        } else if (converter == Bind.Converter.STRING_TO_INTEGER) {
+            return Pair.of(new StringToIntegerConverter("Not a number"), 0);
+        } else {
+            throw new IllegalArgumentException("Unsupported converter type");
+        }
     }
 
     protected void actionBeforeOpen() {
