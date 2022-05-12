@@ -12,7 +12,7 @@ import ru.andreeva.shop.service.specification.ProductSpecificationFactoryImpl;
 import ru.andreeva.shop.ui.component.ProductEditor;
 import ru.andreeva.shop.ui.view.MainLayout;
 
-@Route(value = "product", layout = MainLayout.class)
+@Route(value = "product-view", layout = MainLayout.class)
 @PageTitle("Товары")
 @Tag("product-view")
 @JsModule("./view/entity/product-view.ts")

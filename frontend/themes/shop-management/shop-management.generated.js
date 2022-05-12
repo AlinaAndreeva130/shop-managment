@@ -1,6 +1,11 @@
 import 'construct-style-sheets-polyfill';
-import { DomModule } from "@polymer/polymer/lib/elements/dom-module";
-import { stylesFromTemplate } from "@polymer/polymer/lib/utils/style-gather";
+import {DomModule} from "@polymer/polymer/lib/elements/dom-module";
+import {stylesFromTemplate} from "@polymer/polymer/lib/utils/style-gather";
+import stylesCss from './styles.css';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/badge.js';
 
 const createLinkReferences = (css, target) => {
   // Unresolved urls are written as '@import url(text);' to the css
@@ -65,26 +70,21 @@ const getStyleModule = (id) => {
       .join(" ");
   return cssText;
 };
-import stylesCss from './styles.css';
-import '@vaadin/vaadin-lumo-styles/typography.js';
-import '@vaadin/vaadin-lumo-styles/color.js';
-import '@vaadin/vaadin-lumo-styles/spacing.js';
-import '@vaadin/vaadin-lumo-styles/badge.js';
 
 window.Vaadin = window.Vaadin || {};
 window.Vaadin.Flow = window.Vaadin.Flow || {};
-window.Vaadin.Flow['_vaadintheme_library-management_globalCss'] = window.Vaadin.Flow['_vaadintheme_library-management_globalCss'] || [];
+window.Vaadin.Flow['_vaadintheme_shop-management_globalCss'] = window.Vaadin.Flow['_vaadintheme_shop-management_globalCss'] || [];
 export const applyTheme = (target) => {
   
-  const injectGlobal = (window.Vaadin.Flow['_vaadintheme_library-management_globalCss'].length === 0) || (!window.Vaadin.Flow['_vaadintheme_library-management_globalCss'].includes(target) && target !== document);
+  const injectGlobal = (window.Vaadin.Flow['_vaadintheme_shop-management_globalCss'].length === 0) || (!window.Vaadin.Flow['_vaadintheme_shop-management_globalCss'].includes(target) && target !== document);
   if (injectGlobal) {
     injectGlobalCss(stylesCss.toString(), target);
     
-    window.Vaadin.Flow['_vaadintheme_library-management_globalCss'].push(target);
+    window.Vaadin.Flow['_vaadintheme_shop-management_globalCss'].push(target);
   }
-  if (!document['_vaadintheme_library-management_componentCss']) {
+  if (!document['_vaadintheme_shop-management_componentCss']) {
     
-    document['_vaadintheme_library-management_componentCss'] = true;
+    document['_vaadintheme_shop-management_componentCss'] = true;
   }
   // Lumo styles are injected into shadow roots.
 // For the document, we need to be compatible with flow-generated-imports and add missing <style> tags.

@@ -19,7 +19,7 @@ import java.util.List;
  * The main view is a top-level placeholder for other views.
  */
 @PWA(name = "shop-management", shortName = "shop-management", enableInstallPrompt = false)
-@Theme(themeFolder = "library-management")
+@Theme(themeFolder = "shop-management")
 @PageTitle("Главная")
 public class MainLayout extends AppLayout {
 
@@ -73,7 +73,7 @@ public class MainLayout extends AppLayout {
     }
 
     private Component createDrawerContent() {
-        H2 appName = new H2("library-management");
+        H2 appName = new H2("shop-management");
         appName.addClassNames("flex", "items-center", "h-xl", "m-0", "px-m", "text-m");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,

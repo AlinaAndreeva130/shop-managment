@@ -12,7 +12,7 @@ import ru.andreeva.shop.service.specification.CategorySpecificationFactoryImpl;
 import ru.andreeva.shop.ui.component.CategoryEditor;
 import ru.andreeva.shop.ui.view.MainLayout;
 
-@Route(value = "category", layout = MainLayout.class)
+@Route(value = "category-view", layout = MainLayout.class)
 @PageTitle("Категории товаров")
 @Tag("category-view")
 @JsModule("./view/entity/category-view.ts")
